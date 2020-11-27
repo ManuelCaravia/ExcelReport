@@ -1,4 +1,4 @@
-﻿<Window x:Class="Testing_wpf_csv.MainWindow"
+﻿<Window x:Class="Testing_wpf_csv.MainWindow" ResizeMode="NoResize"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -6,12 +6,26 @@
         xmlns:local="clr-namespace:Testing_wpf_csv"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <StackPanel Orientation="Vertical">
-        <TextBlock>Lol</TextBlock>
-        <TextBlock>Lol</TextBlock>
-        <ListView>
-            
-        </ListView>
+    <StackPanel Orientation="Vertical" Margin="20">
+        <TextBlock HorizontalAlignment="Center" FontSize="48"
+                   FontFamily="Segoe UI Black">Excel Testing</TextBlock>
+        <TextBlock FontSize="22">Display Cell Content or Write to Cell</TextBlock>
+        <TextBlock >Select columns down</TextBlock>
+        <TextBox x:Name="column_picker" ></TextBox>
+        <TextBlock >Select rows to right</TextBlock>
+        <TextBox x:Name="row_picker" ></TextBox>
+
+        <Button x:Name="new_file_button" Content="Get new Raw Data file" 
+                Margin="300,0,300,0" Click="New_file_button_Click"></Button>
+        <TextBlock>If you wish to write add some content below</TextBlock>
+        <TextBox x:Name="write_textbox"></TextBox>
+        <Button x:Name="write_button" Margin="300,0,300,0" Click="Write_button_Click">Write to cell</Button>
+        <TextBlock x:Name="testing"></TextBlock>
+        <TextBlock x:Name="row_count_text"></TextBlock>
+        <ListView MaxHeight="100"  x:Name="raw_listview" ScrollViewer.CanContentScroll="True"></ListView>
+        <TextBlock x:Name="numbum"></TextBlock>
+        
+
     </StackPanel>
     
 </Window>

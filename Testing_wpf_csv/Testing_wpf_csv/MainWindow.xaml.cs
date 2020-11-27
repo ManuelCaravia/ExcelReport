@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-
+using Testing_wpf_csv.Control;
 namespace Testing_wpf_csv
 {
     /// <summary>
@@ -20,9 +20,25 @@ namespace Testing_wpf_csv
     /// </summary>
     public partial class MainWindow : Window
     {
+        static string file_path = @"D:\desk\canopy-height-report-Template-20201124.xlsx";
+        Controller controller;
         public MainWindow()
         {
             InitializeComponent();
+            controller = new Controller();
+            controller.Load_raw_data(file_path);
+            raw_listview.ItemsSource = controller.Raw_data;
+        }
+
+        private void New_file_button_Click(object sender, RoutedEventArgs e)
+        {            
+            testing.Text = controller.Raw_data.Count.ToString();            
+        }
+
+        private void Write_button_Click(object sender, RoutedEventArgs e)
+        {
+            int rows_to_right = Int32.Parse(row_picker.Text);
+            int columns_down = Int32.Parse(column_picker.Text);                      
         }
     }
 }
