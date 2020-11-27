@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing_wpf_csv", "Testing_wpf_csv\Testing_wpf_csv.csproj", "{683CD072-51F3-4FD5-AF17-EA237F1D7E73}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{683CD072-51F3-4FD5-AF17-EA237F1D7E73}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683CD072-51F3-4FD5-AF17-EA237F1D7E73}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683CD072-51F3-4FD5-AF17-EA237F1D7E73}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683CD072-51F3-4FD5-AF17-EA237F1D7E73}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5C165C13-E8CD-4147-98A6-8ECEFC2AE39D}
+	EndGlobalSection
+EndGlobal
