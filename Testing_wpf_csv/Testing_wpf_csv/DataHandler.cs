@@ -7,28 +7,27 @@ using System.Threading.Tasks;
 using Testing_wpf_csv.Models;
 using Microsoft.Office.Interop.Excel;
 using _Excel = Microsoft.Office.Interop.Excel;
+using System.IO;
 
 namespace Testing_wpf_csv
 {
     class DataHandler
     {
-        private string raw_data_file_location= @"D:\desk\canopy-height-report-Template-20201124.xlsx";
-        
+        private string raw_data_file_location= @"";        
 
         _Application excel = new _Excel.Application();
-
         Workbook wb;
+        Worksheet ws;
+        
 
-        Worksheet ws;        
+
         public string Raw_data_file_location { get => raw_data_file_location; set => raw_data_file_location = value; }
 
         public DataHandler(string path, int sheet)
-        {
-            ObservableCollection<RawRecord> records;
+        {            
             raw_data_file_location = path;
             wb = excel.Workbooks.Open(raw_data_file_location);
-            ws = wb.Worksheets[sheet];
-            
+            ws = wb.Worksheets[sheet];                    
         }
 
         public double ReadCell(int cells_down, int cells_to_right)
@@ -42,16 +41,33 @@ namespace Testing_wpf_csv
 
         public void WriteToCell(int cells_down, int cells_to_right, string s)
         {
-            ws.Cells[cells_down, cells_to_right].Value2 = s; 
+            ws.Cells[cells_down, cells_to_right].Value2 = s;
+            wb.Save();
         }
         public int GetRowCount()
         {
             int row_count = 0;
-            while (ws.Cells[(row_count+1), 1].Value2 != null)
+            while (ws.Cells[(row_count+1), 1].Value2 != null)// +1 since excel doesnt have row 0, starts from 1
+            {
+                row_count=row_count + 30;//we increment by 30 first to reduce amount of checks
+            }
+            row_count = row_count - 30;
+            while (ws.Cells[(row_count + 1), 1].Value2 != null)
             {
                 row_count++;
             }
             return row_count;
         }
+        public void CreateNewFile(string export_excel_path)
+        {
+            wb = excel.Workbooks.Add();
+            wb.SaveAs(export_excel_path);
+            ws = wb.Worksheets[1];            
+        }
+        public void Close()
+        {
+            wb.Close();
+        }
+        
     }
 }
