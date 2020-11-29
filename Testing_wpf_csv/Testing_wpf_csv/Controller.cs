@@ -13,25 +13,42 @@ namespace Testing_wpf_csv.Control
 
         //properties
         public List<FileController> Files { get => files; set => files = value; }
-
+        
         public Controller(string[] file_path)
         {
-            files = new List<FileController>();//init list, with no items
-            foreach(var path in file_path) 
-            {
+
+            files = new List<FileController>();//init list, with no items          
+            
+            foreach (var path in file_path) 
+            {                                
                 files.Add(new FileController(path));//add a file controller for every raw data csv found to list
-            }
+            }                        
         }
 
         /* 
          *  
         */
-        public void Process_files()
-        {
+        public void Process_SaveSummary()
+        {            
             foreach(var file_controller in files)
             {
                 file_controller.SaveSummary();
+            }            
+        }
+        public void CopyRawData()
+        {
+            foreach (var file_controller in files)
+            {
+                file_controller.CopyRawDataToExcelFile();
+            }            
+        }
+        public void DrawGraphs()
+        {
+            foreach (var file_controller in files)
+            {
+                file_controller.DrawGraph_Style();
             }
+
         }
 
         

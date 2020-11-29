@@ -11,11 +11,17 @@
                    FontFamily="Segoe UI Black">Excel Report Generator</TextBlock>
         <TextBlock x:Name="location_textblock"></TextBlock>
         <ListView x:Name="files_list"></ListView>
-
-
-
         <Button x:Name="new_location_btn" Click="New_location_btn_Click" 
                 VerticalAlignment="Bottom">Select New Excel Files Location</Button>
+        
+        <Button x:Name="process_button" Click="Process_button_Click">Process</Button>
+
+
+
+        
+        <Button x:Name="copy_raw_data_button" Click="Copy_raw_data_button_Click">
+            Copy Raw Data</Button>
+        <Button x:Name="draw_graph_btn" Click="Draw_graph_btn_Click">Draw Graph on excel</Button>
     </StackPanel>
     
 </Window>

@@ -20,7 +20,7 @@ namespace Testing_wpf_csv.Control
         private double average_height;//average of all samples
         private double max_height;//highest height of all samples 
         private List<RawRecord> raw_data;
-        private bool dataFetched,dataProcessed = false ;
+        private bool dataFetched,dataProcessed;
         private int amount_of_records;
 
         public string Video_location { get => video_data_location; set => video_data_location = value; }
@@ -31,15 +31,21 @@ namespace Testing_wpf_csv.Control
         public List<RawRecord> Raw_data { get => raw_data; set => raw_data = value; }
         public string Exported_file_path { get => exported_file_path; set => exported_file_path = value; }
 
-        public FileController(string full_file_path)
+        public FileController(string csv_file_path)
         {
-            video_data_location = full_file_path;
-            db = new DataHandler(video_data_location, 1);
+            video_data_location = csv_file_path;
+            db = new DataHandler();
             raw_data = new List<RawRecord>();
             exported_file_path = Path.ChangeExtension(video_data_location, "xlsx");
+            db.CreateNewFile(exported_file_path);
+            db.Open(exported_file_path, 1);
+            db.CreateNewSheet();
+            dataFetched = false;
+            dataProcessed = false;
         }
         public void Load_raw_data()
-        {            
+        {
+            db.Open(video_data_location, 1);
             int num_rows = db.GetRowCount();
 
             for (int row = 2; row <= num_rows; row++ )
@@ -51,6 +57,7 @@ namespace Testing_wpf_csv.Control
                 raw_data.Add(new RawRecord(time, average_shoot_height, latitud, longitud));                
             }
             dataFetched = true;
+            db.Close();
         }
         public void ProcessData()
         {
@@ -115,7 +122,7 @@ namespace Testing_wpf_csv.Control
             //calc percentage of shoot heights
             for (int height = 0; height < 5; height++)
             {
-                sizes_count_percentage[height] = ((double)sizes_count[height]/ (double)amount_of_records)*100.0;//                
+                sizes_count_percentage[height] = ((double)sizes_count[height]/ (double)amount_of_records);//excel doesn't require to * 100                
             }
             dataProcessed = true;
         }      
@@ -128,39 +135,74 @@ namespace Testing_wpf_csv.Control
             if (!dataProcessed)
             {
                 ProcessData();
-            }
-
-            db.CreateNewFile(@exported_file_path);
+            }            
+            db.Open(exported_file_path, 1);
             //init title columns 
             db.WriteToCell(4, 2, "Shoot height statistics");
             db.WriteToCell(6, 3, "Number of shoots which have reached this shoot height (m)");
             db.WriteToCell(7, 2, "Video");
             db.WriteToCell(8, 2, Exported_file_path);
+            
 
             //Writing amount of shoots to reach to a certain height and the total percentage            
             db.WriteToCell(7,3,"0.6");
-            db.WriteToCell(8, 3, sizes_count[0].ToString());
-            db.WriteToCell(9, 3, sizes_count_percentage[0].ToString());
+            db.WriteToCell(8, 3, sizes_count[0]);
+            db.WriteToCell(9, 3, sizes_count_percentage[0]);
 
             db.WriteToCell(7, 4, "0.8");
-            db.WriteToCell(8, 4, sizes_count[1].ToString());
-            db.WriteToCell(9, 4, sizes_count_percentage[1].ToString());
+            db.WriteToCell(8, 4, sizes_count[1]);
+            db.WriteToCell(9, 4, sizes_count_percentage[1]);
 
             db.WriteToCell(7, 5, "1");
             db.WriteToCell(8, 5, sizes_count[2].ToString());
-            db.WriteToCell(9, 5, sizes_count_percentage[2].ToString());
+            db.WriteToCell(9, 5, sizes_count_percentage[2]);
 
             db.WriteToCell(7, 6, "1.2");
-            db.WriteToCell(8, 6, sizes_count[3].ToString());
-            db.WriteToCell(9, 6, sizes_count_percentage[3].ToString());
+            db.WriteToCell(8, 6, sizes_count[3]);
+            db.WriteToCell(9, 6, sizes_count_percentage[3]);
 
             db.WriteToCell(7, 7, "1.4");
-            db.WriteToCell(8, 7, sizes_count[4].ToString());
-            db.WriteToCell(9, 7, sizes_count_percentage[4].ToString());
+            db.WriteToCell(8, 7, sizes_count[4]);
+            db.WriteToCell(9, 7, sizes_count_percentage[4]);
 
             db.WriteToCell(9, 1, "Total");
-            db.WriteToCell(9, 2, amount_of_records.ToString());
+            db.WriteToCell(9, 2, amount_of_records);            
 
+            db.SaveWorkBookProgress();
+            db.Close();
+        }
+        //using a list of RawRecord objects 
+        public void CopyRawDataToExcelFile()
+        {
+            db.Open(exported_file_path, 1);
+            int row_num = 2;//the first row on excel after titles
+            db.CreateNewSheet();
+            db.SelectSheet(2);
+            db.WriteToCell(1, 1, "time");
+            db.WriteToCell(1, 2, "average canopy height");
+            db.WriteToCell(1, 3, "latitud");
+            db.WriteToCell(1, 4, "longitud");
+            foreach (var record in raw_data)
+            {
+                //time of record
+                db.WriteToCell(row_num, 1, record.Time);
+                //average height
+                db.WriteToCell(row_num, 2, record.Average_shoot_height);
+                //latitud
+                db.WriteToCell(row_num, 3, record.Latitude);
+                //longitud
+                db.WriteToCell(row_num, 4, record.Longitud);
+                row_num++;
+            }
+            db.SaveWorkBookProgress();
+            db.Close();
+        }
+        public void DrawGraph_Style()
+        {
+            db.Open(exported_file_path, 1);
+            //Styling
+            db.StyleExcelFile(amount_of_records);
+            db.SaveWorkBookProgress();
             db.Close();
         }
     }

@@ -42,8 +42,22 @@ namespace Testing_wpf_csv
             
             csv_files = Directory.GetFiles(file_path, "*.csv");
             
-            controller = new Controller(csv_files);
-            controller.Process_files();
+            controller = new Controller(csv_files);            
+        }
+
+        private void Copy_raw_data_button_Click(object sender, RoutedEventArgs e)
+        {
+            controller.CopyRawData();
+        }
+
+        private void Process_button_Click(object sender, RoutedEventArgs e)
+        {
+            controller.Process_SaveSummary();
+        }
+
+        private void Draw_graph_btn_Click(object sender, RoutedEventArgs e)
+        {
+            controller.DrawGraphs();
         }
     }
 }
