@@ -133,8 +133,10 @@ namespace Testing_wpf_csv.Control
         //anything that needs to be done at the end, in this case select which sheet is desplayed when used open doc
         public void FinishUp()
         {
-            db.Open(exported_file_path, "Summary");            
+            db.Open(exported_file_path, "Summary"); 
+            
             db.SelectOpenSheet();
+            
             db.SaveWorkBookProgress();
         }
         public void ProcessFile()

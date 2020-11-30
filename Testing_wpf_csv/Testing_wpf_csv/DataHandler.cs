@@ -47,13 +47,7 @@ namespace Testing_wpf_csv
             
             ws.Cells[cells_down, cells_to_right].Formula = formula;            
         }
-        public void WriteFormulaaToCell(string formula_destination, string formula)
-        {
-            Range range = ws.Range[formula_destination];
-            range.Formula = formula;
-            range.FormulaHidden = true;
-            range.Calculate();
-        }
+        
         public void WriteToCell(int cells_down, int cells_to_right, int num)
         {
             ws.Cells[cells_down, cells_to_right].Value2 = num;
@@ -81,8 +75,9 @@ namespace Testing_wpf_csv
         //Create new excel workbook
         public void CreateNewFile(string path)
         {
-            wb = excel.Workbooks.Add();
-            wb.SaveAs(path);                        
+            wb = excel.Workbooks.Add();            
+            wb.SaveAs(path);
+            
         }
         //will style and draw graph
         public void StyleExcelFile(int record_count)
@@ -166,7 +161,7 @@ namespace Testing_wpf_csv
             wb.Save();
         }
         //
-                            
+           
         public void Close()
         {
             wb.Close();            
