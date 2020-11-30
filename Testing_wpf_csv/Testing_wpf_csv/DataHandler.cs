@@ -42,6 +42,18 @@ namespace Testing_wpf_csv
         {
             ws.Cells[cells_down, cells_to_right].Value2 = s;
         }
+        public void WriteFormulaToCell(int cells_down, int cells_to_right, string formula)
+        {
+            
+            ws.Cells[cells_down, cells_to_right].Formula = formula;            
+        }
+        public void WriteFormulaaToCell(string formula_destination, string formula)
+        {
+            Range range = ws.Range[formula_destination];
+            range.Formula = formula;
+            range.FormulaHidden = true;
+            range.Calculate();
+        }
         public void WriteToCell(int cells_down, int cells_to_right, int num)
         {
             ws.Cells[cells_down, cells_to_right].Value2 = num;
@@ -88,19 +100,20 @@ namespace Testing_wpf_csv
 
             _Excel.ChartObject myChart = (_Excel.ChartObject)xlCharts.Add(10, 80, 300, 250);            
             _Excel.Chart chartPage = myChart.Chart;
-
+            
             chartPage.SetSourceData(chart_range, misValue);
             chartPage.ChartType = _Excel.XlChartType.xlLine;            
             bold = ws.Range["b7", "j7"];
             subtitle = ws.Range["b4"];
             chartPage.HasTitle = true;
             chartPage.ChartTitle.Text = "Average Canopy Height/Footage Time (meters/seconds)";
+                        
 
-           
-
+            
+            
             bold.Font.Bold = true;
             percentage = ws.Range["c9","g9"];
-            percentage.NumberFormat = "#.00%";
+            percentage.NumberFormat = "#.00%";            
             percentage.Font.Size = 14;
             subtitle.Font.Size = 14;            
         }
@@ -115,22 +128,51 @@ namespace Testing_wpf_csv
         {
             ws = (_Excel.Worksheet)wb.Worksheets.get_Item(sheet_index);
         }
+
+        public void SelectSheet(string sheet_index)
+        {
+            ws = (_Excel.Worksheet)wb.Worksheets.get_Item(sheet_index);
+        }
+        //this sheet will be displayed when user opens excel document
+        public void SelectOpenSheet()
+        {
+            ws.Select();
+        }
+
+        //rename a already initialized excel worksheet
+        public void RenameSheet(string sheet_name)
+        {
+            ws.Name = sheet_name;
+        }
         //
         public void Open(string path, int sheet)
         {            
             wb = excel.Workbooks.Open(path);
             SelectSheet(sheet);
         }
+        public void Open(string path, string sheet)
+        {
+            wb = excel.Workbooks.Open(path);
+            SelectSheet(sheet);
+        }
+        public List<string> GetRawDataList(string csv_path)
+        {
+            return File.ReadAllLines(csv_path).ToList();
+        }
+        
         //Save changes to excel workbook file,wb must already be initialized
         public void SaveWorkBookProgress()
         {
             wb.Save();
         }
         //
+                            
         public void Close()
         {
             wb.Close();            
         }
+
         
     }
+
 }

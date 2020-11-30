@@ -45,19 +45,10 @@ namespace Testing_wpf_csv
             controller = new Controller(csv_files);            
         }
 
-        private void Copy_raw_data_button_Click(object sender, RoutedEventArgs e)
-        {
-            controller.CopyRawData();
-        }
 
-        private void Process_button_Click(object sender, RoutedEventArgs e)
+        private void Process_btn_Click(object sender, RoutedEventArgs e)
         {
-            controller.Process_SaveSummary();
-        }
-
-        private void Draw_graph_btn_Click(object sender, RoutedEventArgs e)
-        {
-            controller.DrawGraphs();
+            controller.ProcessFiles();
         }
     }
 }

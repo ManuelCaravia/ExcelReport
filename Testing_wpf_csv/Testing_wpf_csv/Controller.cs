@@ -28,29 +28,13 @@ namespace Testing_wpf_csv.Control
         /* 
          *  
         */
-        public void Process_SaveSummary()
-        {            
-            foreach(var file_controller in files)
-            {
-                file_controller.SaveSummary();
-            }            
-        }
-        public void CopyRawData()
+       
+        public void ProcessFiles()
         {
             foreach (var file_controller in files)
             {
-                file_controller.CopyRawDataToExcelFile();
+                file_controller.ProcessFile();
             }            
-        }
-        public void DrawGraphs()
-        {
-            foreach (var file_controller in files)
-            {
-                file_controller.DrawGraph_Style();
-            }
-
-        }
-
-        
+        }       
     }
 }
