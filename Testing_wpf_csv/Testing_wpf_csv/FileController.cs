@@ -18,22 +18,44 @@ namespace Testing_wpf_csv.Control
 
         public string Video_location { get => video_data_location; set => video_data_location = value; }        
         public string Exported_file_path { get => exported_file_path; set => exported_file_path = value; }
+        public bool IsValid { get; }
 
         public FileController(string csv_file_path)
         {
             video_data_location = csv_file_path;
-            db = new DataHandler();            
-            exported_file_path = Path.ChangeExtension(video_data_location, "xlsx");
-            db.CreateNewFile(exported_file_path);
-            db.Open(exported_file_path, 1);
-            db.RenameSheet("Summary");
-            db.CreateNewSheet();
-            db.SelectSheet(2);
-            db.RenameSheet("raw data");
-            db.SaveWorkBookProgress();
+            db = new DataHandler();
+            
+            IsValid = CheckValidDocument();
+            if (IsValid)
+            {
+                exported_file_path = Path.ChangeExtension(video_data_location, "xlsx");
+                db.CreateNewFile(exported_file_path);
+                db.Open(exported_file_path, 1);
+                db.RenameSheet("Summary");
+                db.CreateNewSheet();
+                db.SelectSheet(2);
+                db.RenameSheet("raw data");
+                db.SaveWorkBookProgress();
+            }                        
             db.Close();            
-        }        
-        
+        }  
+        //will open csv file, check if it has the right columns return a boolean if matches
+        //with what we are looking for 
+        public bool CheckValidDocument()
+        {
+            db.Open(video_data_location, 1);
+            if(
+                db.ReadCell_str(1,1).Equals("time")                
+                )
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
 
        /* calls DataHandler object to create a new file
          * then uses it to initialize columns and save summary 

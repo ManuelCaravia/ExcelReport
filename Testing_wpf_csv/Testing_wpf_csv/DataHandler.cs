@@ -37,6 +37,14 @@ namespace Testing_wpf_csv
             }
             else return -1.0;
         }
+        public string ReadCell_str(int cells_down, int cells_to_right)
+        {
+            if (ws.Cells[cells_down, cells_to_right].Value2 != null)
+            {
+                return ws.Cells[cells_down, cells_to_right].Value2;
+            }
+            else return "";
+        }
         //write to excel cell 
         public void WriteToCell(int cells_down, int cells_to_right, string s)
         {

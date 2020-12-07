@@ -33,7 +33,10 @@ namespace Testing_wpf_csv.Control
         {
             foreach (var file_controller in files)
             {
-                file_controller.ProcessFile();
+                if (file_controller.IsValid)
+                {
+                    file_controller.ProcessFile();
+                }                
             }            
         }       
     }
