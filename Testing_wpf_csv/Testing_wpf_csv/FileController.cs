@@ -29,7 +29,7 @@ namespace Testing_wpf_csv.Control
             if (IsValid)
             {
                 exported_file_path = Path.ChangeExtension(video_data_location, "xlsx");
-                db.CreateNewFile(exported_file_path);
+                db.CreateNewFile(exported_file_path);//Create excel summary page 
                 db.Open(exported_file_path, 1);
                 db.RenameSheet("Summary");
                 db.CreateNewSheet();
@@ -48,12 +48,14 @@ namespace Testing_wpf_csv.Control
                 db.ReadCell_str(1,1).Equals("time")                
                 )
             {
+                db.Close();
                 return true;
             }
             else
             {
+                db.Close();
                 return false;
-            }
+            }            
             
         }
 
