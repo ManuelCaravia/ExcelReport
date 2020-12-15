@@ -9,7 +9,8 @@
     <StackPanel Orientation="Vertical" Margin="20">
         <TextBlock HorizontalAlignment="Center" FontSize="48"
                    FontFamily="Segoe UI Black">Excel Report Generator</TextBlock>
-        
+        <TextBlock x:Name="info1"></TextBlock>
+        <TextBlock Margin="0,0,0,200" x:Name="info2"></TextBlock>
         <Button x:Name="new_location_btn" Click="New_location_btn_Click" 
                 VerticalAlignment="Bottom">Select New Excel Files Location</Button>
 

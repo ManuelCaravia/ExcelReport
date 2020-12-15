@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -35,6 +36,8 @@ namespace Testing_wpf_csv
 
         private void New_location_btn_Click(object sender, RoutedEventArgs e)
         {
+            new_location_btn.IsEnabled = false;
+            process_btn.IsEnabled = false;
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
             string[] csv_files;//addresses of all csv files found
             DialogResult result = folderBrowser.ShowDialog();
@@ -42,13 +45,46 @@ namespace Testing_wpf_csv
             
             csv_files = Directory.GetFiles(file_path, "*.csv");
             
-            controller = new Controller(csv_files);            
+            controller = new Controller(csv_files);
+            new_location_btn.IsEnabled = true;
+            process_btn.IsEnabled = true;
         }
 
 
         private void Process_btn_Click(object sender, RoutedEventArgs e)
         {
-            controller.ProcessFiles();
+            new_location_btn.IsEnabled = false;
+            process_btn.IsEnabled = false;
+            BackgroundWorker worker = new BackgroundWorker();
+            worker.WorkerReportsProgress = true;
+            worker.DoWork += BackgroundWorker1_DoWork;
+            worker.ProgressChanged += BackgroundWorker1_ProgressChanged;
+            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
+            worker.RunWorkerAsync();
+        }
+        private void BackgroundWorker1_DoWork(object sender,
+            DoWorkEventArgs e)
+        {
+                        
+            controller.ProcessFiles(sender);
+        }
+
+
+        // This event handler updates the progress bar.
+        private void BackgroundWorker1_ProgressChanged(object sender,
+            ProgressChangedEventArgs e)
+        {
+            //this.progressBar1.Value = e.ProgressPercentage;
+            info1.Text = e.ProgressPercentage.ToString() + " files processed";
+            info2.Text = "Working on file: " + e.UserState.ToString();
+        }
+        void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {            
+            System.Windows.Forms.MessageBox.Show("Done");
+            info1.Text = "";
+            info2.Text = "";
+            new_location_btn.IsEnabled = true;
+            process_btn.IsEnabled = true;
         }
     }
 }

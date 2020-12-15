@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,13 +30,16 @@ namespace Testing_wpf_csv.Control
          *  
         */
        
-        public void ProcessFiles()
+        public void ProcessFiles(object sender)
         {
+            int count = 0;
             foreach (var file_controller in files)
             {
                 if (file_controller.IsValid)
-                {
+                {                    
+                    (sender as BackgroundWorker).ReportProgress(count, file_controller.Exported_file_path);
                     file_controller.ProcessFile();
+                    count++;
                 }                
             }            
         }       
