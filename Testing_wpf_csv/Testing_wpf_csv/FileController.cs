@@ -162,6 +162,7 @@ namespace Testing_wpf_csv.Control
             db.SelectOpenSheet();
             
             db.SaveWorkBookProgress();
+            db.Close();
         }
         public void ProcessFile()
         {            

@@ -36,11 +36,10 @@ namespace Testing_wpf_csv
 
         private void New_location_btn_Click(object sender, RoutedEventArgs e)
         {
-            new_location_btn.IsEnabled = false;
-            process_btn.IsEnabled = false;
+            new_location_btn.IsEnabled = false;            
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
             string[] csv_files;//addresses of all csv files found
-            DialogResult result = folderBrowser.ShowDialog();
+            DialogResult result = folderBrowser.ShowDialog();            
             file_path = folderBrowser.SelectedPath;
             
             csv_files = Directory.GetFiles(file_path, "*.csv");
@@ -48,6 +47,7 @@ namespace Testing_wpf_csv
             controller = new Controller(csv_files);
             new_location_btn.IsEnabled = true;
             process_btn.IsEnabled = true;
+            info1.Text = "";
         }
 
 
@@ -80,11 +80,10 @@ namespace Testing_wpf_csv
         }
         void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {            
-            System.Windows.Forms.MessageBox.Show("Done");
+            System.Windows.Forms.MessageBox.Show("Done " );
             info1.Text = "";
             info2.Text = "";
-            new_location_btn.IsEnabled = true;
-            process_btn.IsEnabled = true;
+            new_location_btn.IsEnabled = true;            
         }
     }
 }

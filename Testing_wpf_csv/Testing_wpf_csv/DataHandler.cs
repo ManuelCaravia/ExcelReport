@@ -84,8 +84,7 @@ namespace Testing_wpf_csv
         public void CreateNewFile(string path)
         {
             wb = excel.Workbooks.Add();            
-            wb.SaveAs(path);
-            
+            wb.SaveAs(path);            
         }
         //will style and draw graph
         public void StyleExcelFile(int record_count)

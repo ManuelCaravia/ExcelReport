@@ -9,12 +9,12 @@
     <StackPanel Orientation="Vertical" Margin="20">
         <TextBlock HorizontalAlignment="Center" FontSize="48"
                    FontFamily="Segoe UI Black">Excel Report Generator</TextBlock>
-        <TextBlock x:Name="info1"></TextBlock>
-        <TextBlock Margin="0,0,0,200" x:Name="info2"></TextBlock>
+        <TextBlock x:Name="info1" FontWeight="Bold" FontSize="32"></TextBlock>
+        <TextBlock Margin="0,0,0,150" x:Name="info2" FontWeight="Thin" FontSize="16" FontStyle="Italic"></TextBlock>
         <Button x:Name="new_location_btn" Click="New_location_btn_Click" 
                 VerticalAlignment="Bottom">Select New Excel Files Location</Button>
 
-        <Button x:Name="process_btn" Click="Process_btn_Click">Process Folder Now</Button>
+        <Button x:Name="process_btn" Click="Process_btn_Click" IsEnabled="False">Process Folder Now</Button>
         
     </StackPanel>
     
