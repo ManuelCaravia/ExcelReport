@@ -25,7 +25,7 @@ namespace Testing_wpf_csv.Models
         {
             this.time = time;
             this.average_shoot_height = average_shoot_height;
-            this.latitude = latitud;
+            latitude = latitud;
             this.longitud = longitud;
         }
     }

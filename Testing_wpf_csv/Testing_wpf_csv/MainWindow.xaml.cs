@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -27,63 +26,71 @@ namespace Testing_wpf_csv
     public partial class MainWindow : Window
     {
         string file_path = @"";
-        Controller controller;
+        private Controller controller;
         
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
         }
 
-        private void New_location_btn_Click(object sender, RoutedEventArgs e)
+        private void Click_choose_folder(object sender, RoutedEventArgs e)
         {
-            new_location_btn.IsEnabled = false;            
+            btn_location.IsEnabled = false;            
             FolderBrowserDialog folderBrowser = new FolderBrowserDialog();
-            string[] csv_files;//addresses of all csv files found
-            DialogResult result = folderBrowser.ShowDialog();            
-            file_path = folderBrowser.SelectedPath;
-            
-            csv_files = Directory.GetFiles(file_path, "*.csv");
-            
-            controller = new Controller(csv_files);
-            new_location_btn.IsEnabled = true;
-            process_btn.IsEnabled = true;
-            info1.Text = "";
+            string[] csv_files;//path of csv files found
+            DialogResult result = folderBrowser.ShowDialog();
+            if (string.IsNullOrEmpty(folderBrowser.SelectedPath))
+            {
+                info1.Text = "No Folder Selected";
+            }
+            else
+            {
+                info1.Text = "Processing Path Selected";
+                file_path = folderBrowser.SelectedPath;
+
+                csv_files = Directory.GetFiles(file_path, "*.csv");
+                if (csv_files.Length == 0)
+                {
+                    info2.Text = "No CSV Files Found";
+                    info1.Text = "";
+                    btn_process_folder.IsEnabled = false;
+                    clearBtn.Visibility= Visibility.Visible ;
+                }
+                else
+                {
+                    info1.Text = "Processing";
+                    info2.Text = csv_files.Length + " CSV Files Found";
+                    controller = new Controller(csv_files);
+                    btn_location.IsEnabled = true;
+                    btn_process_folder.IsEnabled = false;
+                    info1.Text = "Finished Processing";
+                    info2.Text = "Select a Different Folder";
+                }
+                
+            }  
         }
 
 
-        private void Process_btn_Click(object sender, RoutedEventArgs e)
+        private void Click_process_folder(object sender, RoutedEventArgs e)
         {
-            new_location_btn.IsEnabled = false;
-            process_btn.IsEnabled = false;
-            BackgroundWorker worker = new BackgroundWorker();
-            worker.WorkerReportsProgress = true;
-            worker.DoWork += BackgroundWorker1_DoWork;
-            worker.ProgressChanged += BackgroundWorker1_ProgressChanged;
-            worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
-            worker.RunWorkerAsync();
-        }
-        private void BackgroundWorker1_DoWork(object sender,
-            DoWorkEventArgs e)
-        {
-                        
-            controller.ProcessFiles(sender);
+            btn_location.IsEnabled = false;
+            btn_process_folder.IsEnabled = false;
+            controller.ProcessFiles();
+            btn_location.IsEnabled = true;
+            btn_process_folder.IsEnabled = true;
+            info1.Text = "Finished Processing";
+            info2.Text = "";
+            clearBtn.Visibility = Visibility.Visible;
         }
 
-
-        // This event handler updates the progress bar.
-        private void BackgroundWorker1_ProgressChanged(object sender,
-            ProgressChangedEventArgs e)
+        private void ClearBtn_Click(object sender, RoutedEventArgs e)
         {
-            //this.progressBar1.Value = e.ProgressPercentage;
-            info1.Text = e.ProgressPercentage.ToString() + " files processed";
-            info2.Text = "Working on file: " + e.UserState.ToString();
-        }
-        void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {            
-            System.Windows.Forms.MessageBox.Show("Done " );
             info1.Text = "";
             info2.Text = "";
-            new_location_btn.IsEnabled = true;            
+            info3.Text = "Hint: Specify a folder that that contains raw data CSV files";
+            btn_location.IsEnabled = true;
+            btn_process_folder.IsEnabled = false;
+            clearBtn.Visibility = Visibility.Hidden;
         }
     }
 }

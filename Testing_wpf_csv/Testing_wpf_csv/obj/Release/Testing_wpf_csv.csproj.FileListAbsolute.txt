@@ -1,0 +1,16 @@
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\bin\Release\BitWiseCsv.exe.config
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\bin\Release\BitWiseCsv.exe
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\bin\Release\BitWiseCsv.pdb
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\Testing_wpf_csv.csproj.ResolveComReference.cache
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\MainWindow.g.cs
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\App.g.cs
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\BitWiseCsv_MarkupCompile.cache
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\BitWiseCsv_MarkupCompile.lref
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\MainWindow.baml
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\BitWiseCsv.g.resources
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\BitWiseCsv.Properties.Resources.resources
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\Testing_wpf_csv.csproj.GenerateResource.cache
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\Testing_wpf_csv.csproj.CoreCompileInputs.cache
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\BitWiseCsv.exe
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\BitWiseCsv.pdb
+C:\Users\manu_\Documents\GitHub\ExcelReport\Testing_wpf_csv\Testing_wpf_csv\obj\Release\Testing_wpf_csv.csproj.AssemblyReference.cache

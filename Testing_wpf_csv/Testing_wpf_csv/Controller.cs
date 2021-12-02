@@ -20,28 +20,27 @@ namespace Testing_wpf_csv.Control
 
             files = new List<FileController>();//init list, with no items          
             
-            foreach (var path in file_path) 
-            {                                
+            foreach (string path in file_path)
+            {
                 files.Add(new FileController(path));//add a file controller for every raw data csv found to list
-            }                        
+            }
         }
 
         /* 
          *  
         */
-       
-        public void ProcessFiles(object sender)
+        public void ProcessFiles()
         {
             int count = 0;
             foreach (var file_controller in files)
             {
                 if (file_controller.IsValid)
-                {                    
-                    (sender as BackgroundWorker).ReportProgress(count, file_controller.Exported_file_path);
+                {
+                    //(sender as BackgroundWorker).ReportProgress(count, file_controller.Exported_file_path);
                     file_controller.ProcessFile();
                     count++;
-                }                
-            }            
-        }       
+                }
+            }
+        }
     }
 }

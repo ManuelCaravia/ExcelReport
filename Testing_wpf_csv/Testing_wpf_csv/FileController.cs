@@ -13,7 +13,7 @@ namespace Testing_wpf_csv.Control
     {
         private string video_data_location = @"";
         private string exported_file_path = @"";
-        private DataHandler db;        
+        private ExcelControl db;        
         private int amount_of_records;
 
         public string Video_location { get => video_data_location; set => video_data_location = value; }        
@@ -23,7 +23,7 @@ namespace Testing_wpf_csv.Control
         public FileController(string csv_file_path)
         {
             video_data_location = csv_file_path;
-            db = new DataHandler();
+            db = new ExcelControl();
             
             IsValid = CheckValidDocument();
             if (IsValid)
@@ -31,12 +31,14 @@ namespace Testing_wpf_csv.Control
                 exported_file_path = Path.ChangeExtension(video_data_location, "xlsx");
                 db.CreateNewFile(exported_file_path);//Create excel summary page 
                 db.Open(exported_file_path, 1);
-                db.RenameSheet("Summary");
-                db.CreateNewSheet();
-                db.SelectSheet(2);
+                //db.RenameSheet("Summary");
+                //db.CreateNewSheet();
+                //db.SelectSheet(2);
+                //db.RenameSheet("raw data");
+                //db.SaveWorkBookProgress();
                 db.RenameSheet("raw data");
                 db.SaveWorkBookProgress();
-            }                        
+            }
             db.Close();            
         }  
         //will open csv file, check if it has the right columns return a boolean if matches
@@ -44,9 +46,7 @@ namespace Testing_wpf_csv.Control
         public bool CheckValidDocument()
         {
             db.Open(video_data_location, 1);
-            if(
-                db.ReadCell_str(1,1).Equals("time")                
-                )
+            if(db.ReadCell_str(1,1).Equals("time"))
             {
                 db.Close();
                 return true;
@@ -59,7 +59,7 @@ namespace Testing_wpf_csv.Control
             
         }
 
-       /* calls DataHandler object to create a new file
+       /* calls ExcelControl object to create a new file
          * then uses it to initialize columns and save summary 
         */
         public void WriteSummary()
